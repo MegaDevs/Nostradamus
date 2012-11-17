@@ -1,0 +1,3 @@
+[submodule "NostradamusClient"]
+	path = NostradamusClient
+	url = git@github.com:MegaDevs/NostradamusClient.git
