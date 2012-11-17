@@ -1,0 +1,39 @@
+# cache for current jar dependecy. DO NOT EDIT.
+# format is <lastModified> <length> <SHA-1> <path>
+# Encoding is UTF-8
+1353190015000 113103 03d81483b55e13f72fdcde787cd3a20ec0f7e1eb /home/dextor/eclipseWorkspace/AndroidUserLibraryTest/libs/google-api-client-1.12.0-beta.jar
+1353190015000 113103 03d81483b55e13f72fdcde787cd3a20ec0f7e1eb /home/dextor/Desktop/Nostradamus/Android User Library/libs/google-api-client-1.12.0-beta.jar
+1353190015000 4496 71ec6bdfd0c18e25bd8df92e520780a28978e6a0 /home/dextor/Desktop/Nostradamus/Android User Library/libs/google-http-client-protobuf-1.12.0-beta.jar
+1353190015000 4496 71ec6bdfd0c18e25bd8df92e520780a28978e6a0 /home/dextor/eclipseWorkspace/AndroidUserLibraryTest/libs/google-http-client-protobuf-1.12.0-beta.jar
+1353190015000 6021 fb67e16666707d05a3a1da3aa21b72a9b905c297 /home/dextor/Desktop/Nostradamus/Android User Library/libs/google-oauth-client-jetty-1.12.0-beta.jar
+1353190015000 6021 fb67e16666707d05a3a1da3aa21b72a9b905c297 /home/dextor/eclipseWorkspace/AndroidUserLibraryTest/libs/google-oauth-client-jetty-1.12.0-beta.jar
+1353190016000 180110 2e66da15851f9f5b5079228f856c2f090ba98c38 /home/dextor/Desktop/Nostradamus/Android User Library/libs/gson-2.1.jar
+1353190016000 180110 2e66da15851f9f5b5079228f856c2f090ba98c38 /home/dextor/eclipseWorkspace/AndroidUserLibraryTest/libs/gson-2.1.jar
+1353190015000 2390 6a40165b0265b1be789bf6cd3042059056f94a78 /home/dextor/Desktop/Nostradamus/Android User Library/libs/google-api-client-java6-1.12.0-beta.jar
+1353190015000 2390 6a40165b0265b1be789bf6cd3042059056f94a78 /home/dextor/eclipseWorkspace/AndroidUserLibraryTest/libs/google-api-client-java6-1.12.0-beta.jar
+1353190015000 10272 83dc8aa4c4affd3381008cabc6eba78ce30feebd /home/dextor/eclipseWorkspace/AndroidUserLibraryTest/libs/google-http-client-android-1.12.0-beta.jar
+1353190015000 10272 83dc8aa4c4affd3381008cabc6eba78ce30feebd /home/dextor/Desktop/Nostradamus/Android User Library/libs/google-http-client-android-1.12.0-beta.jar
+1353190015000 6354 e74bc210968484f04c30b3d1490d9a183112855d /home/dextor/eclipseWorkspace/AndroidUserLibraryTest/libs/google-http-client-jackson2-1.12.0-beta.jar
+1353190015000 6354 e74bc210968484f04c30b3d1490d9a183112855d /home/dextor/Desktop/Nostradamus/Android User Library/libs/google-http-client-jackson2-1.12.0-beta.jar
+1353190015000 55067 3ce6992d21f067c2fa2e0b7c77567c2fe94aee8e /home/dextor/Desktop/Nostradamus/Android User Library/libs/google-oauth-client-1.12.0-beta.jar
+1353190015000 55067 3ce6992d21f067c2fa2e0b7c77567c2fe94aee8e /home/dextor/eclipseWorkspace/AndroidUserLibraryTest/libs/google-oauth-client-1.12.0-beta.jar
+1353190016000 26858 d7017477931ef308a3620554de548db4ce9a8b97 /home/dextor/Desktop/Nostradamus/Android User Library/libs/google-oauth-client-servlet-1.12.0-beta.jar
+1353190016000 26858 d7017477931ef308a3620554de548db4ce9a8b97 /home/dextor/eclipseWorkspace/AndroidUserLibraryTest/libs/google-oauth-client-servlet-1.12.0-beta.jar
+1353190015000 208315 4a7581810ad5b2bc76ae135a884a7a8ac5501a25 /home/dextor/eclipseWorkspace/AndroidUserLibraryTest/libs/google-http-client-1.12.0-beta.jar
+1353190015000 208315 4a7581810ad5b2bc76ae135a884a7a8ac5501a25 /home/dextor/Desktop/Nostradamus/Android User Library/libs/google-http-client-1.12.0-beta.jar
+1353190015000 8015 76b9aec3a810b64404a4fda200f0df9fb297c7a7 /home/dextor/Desktop/Nostradamus/Android User Library/libs/google-http-client-gson-1.12.0-beta.jar
+1353190015000 8015 76b9aec3a810b64404a4fda200f0df9fb297c7a7 /home/dextor/eclipseWorkspace/AndroidUserLibraryTest/libs/google-http-client-gson-1.12.0-beta.jar
+1353190015000 8795 52641a739ad85169390cb3343aa0975ed38b04bc /home/dextor/eclipseWorkspace/AndroidUserLibraryTest/libs/google-oauth-client-java6-1.12.0-beta.jar
+1353190015000 8795 52641a739ad85169390cb3343aa0975ed38b04bc /home/dextor/Desktop/Nostradamus/Android User Library/libs/google-oauth-client-java6-1.12.0-beta.jar
+1353190015000 9077 a1f19b7322a3434b9a4a8d3adab3c6e253dc43cf /home/dextor/Desktop/Nostradamus/Android User Library/libs/google-api-client-android-1.12.0-beta.jar
+1353190015000 9077 a1f19b7322a3434b9a4a8d3adab3c6e253dc43cf /home/dextor/eclipseWorkspace/AndroidUserLibraryTest/libs/google-api-client-android-1.12.0-beta.jar
+1353190015000 60686 5043bfebc3db072ed80fbd362e7caf00e885d8ae /home/dextor/eclipseWorkspace/AndroidUserLibraryTest/libs/commons-logging-1.1.1.jar
+1353190015000 60686 5043bfebc3db072ed80fbd362e7caf00e885d8ae /home/dextor/Desktop/Nostradamus/Android User Library/libs/commons-logging-1.1.1.jar
+1353190304000 1791384 381ae6c8add7c98e9bcddb1e0b898400cd6fc3f7 /home/dextor/eclipseWorkspace/AndroidUserLibraryTest/libs/guava-jdk5-13.0.jar
+1353190304000 1791384 381ae6c8add7c98e9bcddb1e0b898400cd6fc3f7 /home/dextor/Desktop/Nostradamus/Android User Library/libs/guava-jdk5-13.0.jar
+1353187454000 349252 612846c9857077a039b533718f72db3bc041d389 /home/dextor/Desktop/Nostradamus/Android User Library/libs/android-support-v4.jar
+1353188614000 349252 612846c9857077a039b533718f72db3bc041d389 /home/dextor/eclipseWorkspace/AndroidUserLibraryTest/libs/android-support-v4.jar
+1353190015000 6321 f8983a933c71ffb89452e01e4927cd8bc9becf43 /home/dextor/eclipseWorkspace/AndroidUserLibraryTest/libs/google-http-client-jackson-1.12.0-beta.jar
+1353190015000 6321 f8983a933c71ffb89452e01e4927cd8bc9becf43 /home/dextor/Desktop/Nostradamus/Android User Library/libs/google-http-client-jackson-1.12.0-beta.jar
+1353190015000 6847 7040db8ab610f758144fa706072764c057a81584 /home/dextor/eclipseWorkspace/AndroidUserLibraryTest/libs/google-oauth-client-appengine-1.12.0-beta.jar
+1353190015000 6847 7040db8ab610f758144fa706072764c057a81584 /home/dextor/Desktop/Nostradamus/Android User Library/libs/google-oauth-client-appengine-1.12.0-beta.jar

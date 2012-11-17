@@ -1,0 +1,9 @@
+<resources>
+
+    <string name="app_name">AndroidUserLibraryTest</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_android_user_library_test">AndroidUserLibraryTestActivity</string>
+    <string name="press_me">press me</string>
+
+</resources>
