@@ -10,4 +10,8 @@ public interface Prefs {
 	@DefaultBoolean(false)
 	public boolean isEnabled();
 	
+	public String myUserName();
+	public String myUserEmail();
+	public String myUserGID();
+	
 }

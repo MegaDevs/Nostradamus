@@ -8,7 +8,6 @@ import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Bundle;
-import android.view.Menu;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -35,6 +34,8 @@ public class WriteActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getActionBar().setLogo(R.drawable.logo1);
+		getActionBar().setDisplayShowTitleEnabled(false);
 		setContentView(R.layout.activity_write);
 		
 		nfcAdapter = NfcAdapter.getDefaultAdapter(this);
@@ -82,13 +83,6 @@ public class WriteActivity extends Activity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_main, menu);
-		return true;
 	}
 
 }

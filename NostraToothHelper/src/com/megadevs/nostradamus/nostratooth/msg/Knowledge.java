@@ -1,10 +1,10 @@
-package com.megadevs.nostradamus.nostratoothhelper.msg;
+package com.megadevs.nostradamus.nostratooth.msg;
 
 import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.Map.Entry;
 
-import com.megadevs.nostradamus.nostratoothhelper.user.SimpleUser;
+import com.megadevs.nostradamus.nostratooth.user.SimpleUser;
 
 public class Knowledge implements Serializable {
 

@@ -1,13 +1,9 @@
 package com.megadevs.nostradamus.nostratoothhelper.storage;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
 
-import com.megadevs.nostradamus.nostratoothhelper.msg.Message;
-import com.megadevs.nostradamus.nostratoothhelper.user.User;
+import com.megadevs.nostradamus.nostratooth.user.User;
 
 public class UserStorage extends CommonStorage {
 

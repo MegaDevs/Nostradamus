@@ -34,13 +34,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.ParcelUuid;
 import android.os.Parcelable;
+import android.widget.Toast;
 
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EService;
 import com.googlecode.androidannotations.annotations.SystemService;
+import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
 import com.megadevs.nostradamus.nostrapushreceiver.PushService;
 import com.megadevs.nostradamus.nostratooth.BluetoothTestActivity;
 import com.megadevs.nostradamus.nostratooth.BluetoothTestActivity_;
+import com.megadevs.nostradamus.nostratooth.Prefs_;
 import com.megadevs.nostradamus.nostratooth.R;
 import com.megadevs.nostradamus.nostratooth.SetScanModeActivity;
 import com.megadevs.nostradamus.nostratooth.SetScanModeActivity_;
@@ -243,6 +246,9 @@ public class Service extends android.app.Service implements LocationListener {
 	
 	@SystemService
 	public ConnectivityManager connManager;
+	
+	@Pref
+	public Prefs_ prefs;
 
 	private String provider;
 	private Location lastLocation;
@@ -305,6 +311,15 @@ public class Service extends android.app.Service implements LocationListener {
 	public void init() {
 		if (mBluetoothAdapter.getScanMode() != BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
 			askScanMode();
+		}
+		if (prefs.myUserName().exists()) {
+			myUser = new SimpleUser(prefs.myUserName().get());
+			myUser.email = prefs.myUserEmail().get();
+			myUser.gid = prefs.myUserGID().get();
+		} else {
+			Toast.makeText(getBaseContext(), "Impossibile avviare il servizio, dati sull'utente mancanti", Toast.LENGTH_LONG).show();
+			stopSelf();
+			return;
 		}
 		startGPS();
 		listen();
@@ -431,9 +446,11 @@ public class Service extends android.app.Service implements LocationListener {
 		} catch (IOException e) {
 			listening = false;
 			e.printStackTrace();
+			listen();
 		} catch (ClassNotFoundException e) {
 			listening = false;
 			//			e.printStackTrace();
+			listen();
 		}
 	}
 
@@ -542,7 +559,7 @@ public class Service extends android.app.Service implements LocationListener {
 		locationManager.removeUpdates(this);
 		Criteria criteria = new Criteria();
 		criteria.setAccuracy(Criteria.ACCURACY_FINE);
-		provider = locationManager.getBestProvider(criteria, false);
+		provider = locationManager.getBestProvider(criteria, true);
 		//		Toast.makeText(this, "Best provider: "+provider, Toast.LENGTH_SHORT).show();
 		lastLocation = locationManager.getLastKnownLocation(provider);
 		if (lastLocation != null) {

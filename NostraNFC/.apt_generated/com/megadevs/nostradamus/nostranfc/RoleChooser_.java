@@ -30,6 +30,7 @@ public final class RoleChooser_
 
     private void init_(Bundle savedInstanceState) {
         prefs = new Prefs_(this);
+        pre();
     }
 
     private void afterSetContentView_() {

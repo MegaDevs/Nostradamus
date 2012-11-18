@@ -39,15 +39,15 @@ import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.EService;
 import com.googlecode.androidannotations.annotations.SystemService;
 import com.megadevs.nostradamus.nostrapushreceiver.PushService;
+import com.megadevs.nostradamus.nostratooth.msg.Knowledge;
+import com.megadevs.nostradamus.nostratooth.msg.Message;
+import com.megadevs.nostradamus.nostratooth.user.SimpleUser;
 import com.megadevs.nostradamus.nostratoothhelper.BluetoothTestActivity;
 import com.megadevs.nostradamus.nostratoothhelper.BluetoothTestActivity_;
 import com.megadevs.nostradamus.nostratoothhelper.R;
 import com.megadevs.nostradamus.nostratoothhelper.SetScanModeActivity;
 import com.megadevs.nostradamus.nostratoothhelper.SetScanModeActivity_;
-import com.megadevs.nostradamus.nostratoothhelper.msg.Knowledge;
-import com.megadevs.nostradamus.nostratoothhelper.msg.Message;
 import com.megadevs.nostradamus.nostratoothhelper.storage.MessageStorage;
-import com.megadevs.nostradamus.nostratoothhelper.user.SimpleUser;
 
 @EService
 public class Service extends android.app.Service implements LocationListener {
@@ -252,8 +252,6 @@ public class Service extends android.app.Service implements LocationListener {
 	private String provider;
 	private Location lastLocation;
 
-	public static SimpleUser myUser;
-
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -313,9 +311,9 @@ public class Service extends android.app.Service implements LocationListener {
 		}
 		startGPS();
 		listen();
-		autoDiscover();
+//		autoDiscover();
 //		myKnowledge.update(getMyAddress(), getMyUser());
-		Random rand = new Random(System.currentTimeMillis());
+//		Random rand = new Random(System.currentTimeMillis());
 //		mHandler.postDelayed(new Runnable() {
 //			@Override
 //			public void run() {
@@ -411,7 +409,7 @@ public class Service extends android.app.Service implements LocationListener {
 			InputStream is = socket.getInputStream();
 			ObjectInputStream ois = new ObjectInputStream(is);
 
-			Message msg = (Message)(ois.readObject());
+			Message msg = (Message) ois.readObject();
 			myKnowledge.merge(msg.knowledge);
 //			myKnowledge.update(getMyAddress(), getMyUser());
 			msg.updateKnowledge(myKnowledge);
@@ -421,7 +419,7 @@ public class Service extends android.app.Service implements LocationListener {
 
 			Intent i = new Intent(SERVICE_RECEIVE_MESSAGE);
 			i.putExtra(EXTRA_MESSAGE, msg);
-			sendOrderedBroadcast(i, null);
+			sendBroadcast(i, null);
 			
 			System.out.println("Received message "+msg);
 
@@ -438,9 +436,11 @@ public class Service extends android.app.Service implements LocationListener {
 		} catch (IOException e) {
 			listening = false;
 			e.printStackTrace();
+			listen();
 		} catch (ClassNotFoundException e) {
 			listening = false;
-			//			e.printStackTrace();
+			e.printStackTrace();
+			listen();
 		}
 	}
 
@@ -522,10 +522,6 @@ public class Service extends android.app.Service implements LocationListener {
 	@Override
 	public void onLocationChanged(Location location) {
 		lastLocation = location;
-		if (lastLocation != null) {
-			myUser.latitude = lastLocation.getLatitude();
-			myUser.longitude = lastLocation.getLongitude();
-		}
 	}
 
 	@Override

@@ -19,11 +19,11 @@ import android.widget.TextView;
 
 import com.foound.widget.AmazingAdapter;
 import com.foound.widget.AmazingListView;
+import com.megadevs.nostradamus.nostratooth.user.User;
 import com.megadevs.nostradamus.nostratoothhelper.service.IService;
 import com.megadevs.nostradamus.nostratoothhelper.service.Service;
 import com.megadevs.nostradamus.nostratoothhelper.storage.MessageStorage;
 import com.megadevs.nostradamus.nostratoothhelper.storage.UserStorage;
-import com.megadevs.nostradamus.nostratoothhelper.user.User;
 
 public class UserListFragment extends Fragment {
 	

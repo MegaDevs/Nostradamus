@@ -26,6 +26,7 @@ public final class BluetoothTestActivity_
     }
 
     private void init_(Bundle savedInstanceState) {
+        prefs = new Prefs_(this);
     }
 
     private void afterSetContentView_() {

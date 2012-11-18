@@ -9,6 +9,7 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
+import com.googlecode.androidannotations.annotations.AfterInject;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Click;
 import com.googlecode.androidannotations.annotations.EActivity;
@@ -102,6 +103,12 @@ public class RoleChooser extends Activity {
 	
 	@Pref
 	public Prefs_ prefs;
+	
+	@AfterInject
+	public void pre() {
+		getActionBar().setLogo(R.drawable.logo1);
+		getActionBar().setDisplayShowTitleEnabled(false);
+	}
 	
 	@AfterViews
 	public void init() {

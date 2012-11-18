@@ -11,14 +11,14 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:label="@string/app_name" >
         
         <activity
             android:name=".WriteActivity_"
             android:label="@string/app_name"
             android:launchMode="singleInstance"
-            android:windowSoftInputMode="adjustResize" >
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@android:style/Theme.Holo.Light" >
             
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +29,8 @@
         
         <activity android:name=".ReadActivity_"
             android:label="@string/app_name"
-            android:launchMode="singleInstance">
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Holo.Light">
             
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
@@ -40,7 +41,8 @@
         </activity>
         
         <activity android:name=".RoleChooser_"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Holo.Light" />
         
     </application>
 

@@ -1,4 +1,4 @@
-package com.megadevs.nostradamus.nostratoothhelper.user;
+package com.megadevs.nostradamus.nostratooth.user;
 
 import java.io.InputStream;
 import java.io.Serializable;
@@ -22,8 +22,6 @@ import android.util.TypedValue;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.QuickContactBadge;
 
-import com.megadevs.nostradamus.nostratoothhelper.msg.Message;
-import com.megadevs.nostradamus.nostratoothhelper.storage.MessageStorage;
 import com.megadevs.nostradamus.nostratoothhelper.storage.UserStorage;
 
 public class User implements Serializable {
@@ -111,7 +109,7 @@ public class User implements Serializable {
 		for (int i = 0; i < addresses.size(); i++) {
 			String address = addresses.elementAt(i);
 			if (us.containsAddress(address)) {
-				users.add(us.getUserFromAddress(address));
+//				users.add(us.getUserFromAddress(address));
 			} else {
 				BluetoothDevice d = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(address);
 				users.add(new User(context, d.getName(), address, null, null, true));
@@ -148,11 +146,11 @@ public class User implements Serializable {
 				case ORDER_ALPHANUMERIC_ASC:
 					return lhs.name.compareToIgnoreCase(rhs.name);
 				case ORDER_DATE_DESC:
-					Message lmsg = MessageStorage.getInstance().getLastMessageFromConversation(lhs);
-					Message rmsg = MessageStorage.getInstance().getLastMessageFromConversation(rhs);
-					if (lmsg.timestamp < rmsg.timestamp) return 1;
-					else if (lmsg.timestamp > rmsg.timestamp) return -1;
-					else return 0;
+//					Message lmsg = MessageStorage.getInstance().getLastMessageFromConversation(lhs);
+//					Message rmsg = MessageStorage.getInstance().getLastMessageFromConversation(rhs);
+//					if (lmsg.timestamp < rmsg.timestamp) return 1;
+//					else if (lmsg.timestamp > rmsg.timestamp) return -1;
+//					else return 0;
 				}
 				return 0;
 			}

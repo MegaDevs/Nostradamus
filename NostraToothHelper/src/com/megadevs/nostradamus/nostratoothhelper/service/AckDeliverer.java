@@ -2,10 +2,10 @@ package com.megadevs.nostradamus.nostratoothhelper.service;
 
 import java.util.Vector;
 
-import com.megadevs.nostradamus.nostratoothhelper.msg.AckMessage;
-import com.megadevs.nostradamus.nostratoothhelper.msg.Message;
-
 import android.bluetooth.BluetoothDevice;
+
+import com.megadevs.nostradamus.nostratooth.msg.AckMessage;
+import com.megadevs.nostradamus.nostratooth.msg.Message;
 
 public class AckDeliverer extends Deliverer {
 

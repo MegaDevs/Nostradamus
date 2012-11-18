@@ -6,7 +6,6 @@ import android.graphics.Typeface;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Bundle;
-import android.renderscript.Font;
 import android.text.SpannableStringBuilder;
 import android.text.style.StyleSpan;
 import android.widget.TextView;
@@ -28,6 +27,8 @@ public class ReadActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getActionBar().setLogo(R.drawable.logo1);
+		getActionBar().setDisplayShowTitleEnabled(false);
 		manageIntent(getIntent());
 	}
 	

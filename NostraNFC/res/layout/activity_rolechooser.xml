@@ -5,6 +5,13 @@
     android:orientation="vertical"
     android:gravity="center" >
 
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scegli il tipo di ente che rappresenti"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp" />
+    
     <Spinner android:id="@+id/role_chooser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

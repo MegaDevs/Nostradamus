@@ -5,8 +5,8 @@ import java.util.Vector;
 import android.bluetooth.BluetoothDevice;
 import android.os.IBinder;
 
-import com.megadevs.nostradamus.nostratoothhelper.msg.Knowledge;
-import com.megadevs.nostradamus.nostratoothhelper.msg.Message;
+import com.megadevs.nostradamus.nostratooth.msg.Knowledge;
+import com.megadevs.nostradamus.nostratooth.msg.Message;
 
 public interface IService extends IBinder {
 

@@ -31,8 +31,8 @@ public final class ReadActivity_
     }
 
     private void afterSetContentView_() {
-        txt = ((TextView) findViewById(id.txt));
         header = ((TextView) findViewById(id.header));
+        txt = ((TextView) findViewById(id.txt));
         afterView();
     }
 

@@ -9,8 +9,8 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 
+import com.megadevs.nostradamus.nostratooth.msg.Message;
 import com.megadevs.nostradamus.nostratoothhelper.BluetoothTestActivity;
-import com.megadevs.nostradamus.nostratoothhelper.msg.Message;
 import com.megadevs.nostradamus.nostratoothhelper.storage.MessageStorage;
 
 public class Deliverer extends Thread {
@@ -48,55 +48,56 @@ public class Deliverer extends Thread {
 	
 	@Override
 	public void run() {
-		synchronized (LOCK) {
-	//		if (msg.isHopLimitReached()) return;
-			if (initialSleep) {
-				try {
-					Thread.sleep(REDELIVER_NO_NEIGHBOURS_WAIT_TIME);
-				} catch (InterruptedException e1) {}
-			}
-			
-			if (!cloned) {
-				msg.addHop(service.getMyAddress());
-			}		
-			
-			service.getNeighbours(new NeighboursAvailableListener() {
-				
-				@Override
-				public void onNeighboursAvailable(Vector<BluetoothDevice> neighbours) {
-					for (int i = 0; i < neighbours.size(); i++) {
-						final BluetoothDevice d = neighbours.elementAt(i);
-						if (d.getAddress().equals(msg.destination)) {
-							neighboursSize = 1;
-							new Thread(new Runnable() {
-								@Override
-								public void run() {
-									sendToDevice(d, msg);
-								}
-							}).start();
-							return;
-						}
-					}
-					neighboursSize = neighbours.size();
-					for (int i = 0; i < neighbours.size(); i++) {
-						final BluetoothDevice d = neighbours.elementAt(i);
-						new Thread(new Runnable() {
-							@Override
-							public void run() {
-								sendToDevice(d, msg);
-							}
-						}).start();
-					}
-				}
-				
-				@Override
-				public void onNoNeighboursAvailable() {
-					System.out.println("No neighbours available");
-					new Deliverer(Deliverer.this, true).start();
-				}
-				
-			});
-		}
+		return;
+//		synchronized (LOCK) {
+//	//		if (msg.isHopLimitReached()) return;
+//			if (initialSleep) {
+//				try {
+//					Thread.sleep(REDELIVER_NO_NEIGHBOURS_WAIT_TIME);
+//				} catch (InterruptedException e1) {}
+//			}
+//			
+//			if (!cloned) {
+//				msg.addHop(service.getMyAddress());
+//			}		
+//			
+//			service.getNeighbours(new NeighboursAvailableListener() {
+//				
+//				@Override
+//				public void onNeighboursAvailable(Vector<BluetoothDevice> neighbours) {
+//					for (int i = 0; i < neighbours.size(); i++) {
+//						final BluetoothDevice d = neighbours.elementAt(i);
+//						if (d.getAddress().equals(msg.destination)) {
+//							neighboursSize = 1;
+//							new Thread(new Runnable() {
+//								@Override
+//								public void run() {
+//									sendToDevice(d, msg);
+//								}
+//							}).start();
+//							return;
+//						}
+//					}
+//					neighboursSize = neighbours.size();
+//					for (int i = 0; i < neighbours.size(); i++) {
+//						final BluetoothDevice d = neighbours.elementAt(i);
+//						new Thread(new Runnable() {
+//							@Override
+//							public void run() {
+//								sendToDevice(d, msg);
+//							}
+//						}).start();
+//					}
+//				}
+//				
+//				@Override
+//				public void onNoNeighboursAvailable() {
+//					System.out.println("No neighbours available");
+//					new Deliverer(Deliverer.this, true).start();
+//				}
+//				
+//			});
+//		}
 	}
 	
 	protected void sendToDevice(BluetoothDevice device, Message msg) {

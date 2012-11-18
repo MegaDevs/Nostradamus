@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -20,8 +21,11 @@ import android.os.IBinder;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -30,13 +34,14 @@ import com.google.android.maps.MyLocationOverlay;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.SystemService;
 import com.megadevs.nostradamus.nostrapushreceiver.PushService;
-import com.megadevs.nostradamus.nostratoothhelper.msg.Message;
+import com.megadevs.nostradamus.nostratooth.msg.Message;
+import com.megadevs.nostradamus.nostratooth.user.SimpleUser;
+import com.megadevs.nostradamus.nostratooth.user.User;
 import com.megadevs.nostradamus.nostratoothhelper.service.IService;
 import com.megadevs.nostradamus.nostratoothhelper.service.Service;
 import com.megadevs.nostradamus.nostratoothhelper.service.Service_;
 import com.megadevs.nostradamus.nostratoothhelper.storage.MessageStorage;
 import com.megadevs.nostradamus.nostratoothhelper.storage.UserStorage;
-import com.megadevs.nostradamus.nostratoothhelper.user.User;
 
 @EActivity
 public class BluetoothTestActivity extends MapActivity implements LocationListener {
@@ -52,8 +57,8 @@ public class BluetoothTestActivity extends MapActivity implements LocationListen
 			} else if (Service.SERVICE_DISCOVERY_FINISHED.equals(action)) {
 //				setProgressBarIndeterminateVisibility(false);
 			} else if (Service.SERVICE_RECEIVE_MESSAGE.equals(action)) {
-				Message msg = (Message)intent.getSerializableExtra(Service.EXTRA_MESSAGE);
-				int tot = msg.knowledge.knowledge.size();
+				lastMessage = (Message)intent.getSerializableExtra(Service.EXTRA_MESSAGE);
+				int tot = lastMessage.knowledge.knowledge.size();
 				if (tot > 0) {
 					header.setText(String.format("Persone rilevate: %1$d", tot));
 				} else {
@@ -64,8 +69,8 @@ public class BluetoothTestActivity extends MapActivity implements LocationListen
 		
 	}
 	
-	public static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");//UUID.fromString("0fdba92f-d218-46d4-8150-97fb6925358f");//UUID.fromString("fd300e40-ad66-11e1-afa6-0800200c9a66");
-//	public static final UUID MY_UUID = UUID.fromString("00001133-0000-1000-8000-00805f9b34fb");
+//	public static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");//UUID.fromString("0fdba92f-d218-46d4-8150-97fb6925358f");//UUID.fromString("fd300e40-ad66-11e1-afa6-0800200c9a66");
+	public static final UUID MY_UUID = UUID.fromString("00001133-0000-1000-8000-00805f9b34fb");
 
 
 	private Intent serviceIntent;
@@ -88,14 +93,41 @@ public class BluetoothTestActivity extends MapActivity implements LocationListen
 	@SystemService
 	public LocationManager locationManager;
 	
+	private Message lastMessage;
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+		getActionBar().setLogo(R.drawable.logo1);
+		getActionBar().setDisplayShowTitleEnabled(false);
 		setContentView(R.layout.main);
 		
 		header = (TextView) findViewById(R.id.header);
+		header.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				if (lastMessage != null) {
+					int tot = lastMessage.knowledge.knowledge.size();
+					if (tot == 0) {
+						Toast.makeText(BluetoothTestActivity.this, "Nessuna persona nelle vicinanze", Toast.LENGTH_LONG).show();
+						return;
+					}
+					String[] ele = new String[tot];
+					int i = 0;
+					for (SimpleUser u : lastMessage.knowledge.knowledge.values()) {
+						ele[i++] = u.name;
+					}
+					AlertDialog.Builder builder = new AlertDialog.Builder(BluetoothTestActivity.this);
+					builder.setTitle("Persone rilevate")
+						.setItems(ele, null)
+						.show();
+				} else {
+					Toast.makeText(BluetoothTestActivity.this, "Nessuna persona nelle vicinanze", Toast.LENGTH_LONG).show();
+				}
+			}
+		});
 		
 		map = (MapView) findViewById(R.id.mapview);
 		map.setBuiltInZoomControls(true);
@@ -241,7 +273,7 @@ public class BluetoothTestActivity extends MapActivity implements LocationListen
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater mi = getMenuInflater();
-		mi.inflate(R.menu.menu_refresh_neighbours, menu);
+//		mi.inflate(R.menu.menu_refresh_neighbours, menu);
 		mi.inflate(R.menu.menu_activate_toggle, menu);
         return true;
     }
@@ -267,7 +299,7 @@ public class BluetoothTestActivity extends MapActivity implements LocationListen
 			onBackPressed();
 			break;
 		case R.id.menu_activate:
-			toggleService();
+//			toggleService();
 			break;
 		case R.id.menu_refresh_neighbours:
 			service.refreshNeighbours();

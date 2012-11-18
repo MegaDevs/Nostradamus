@@ -1,19 +1,15 @@
 package com.megadevs.nostradamus.nostratooth.msg;
 
 import java.io.Serializable;
-import java.util.Hashtable;
-import java.util.Map.Entry;
 import java.util.Vector;
-
-import com.megadevs.nostradamus.nostratooth.user.User;
 
 public class Message implements Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 8862850012959593013L;
-	
+	private static final long serialVersionUID = 333L;
+
 	public int signature;
 	
 	public long timestamp;

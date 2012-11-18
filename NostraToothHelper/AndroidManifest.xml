@@ -24,7 +24,8 @@
             android:name=".BluetoothTestActivity_"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:launchMode="singleInstance">
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Holo.Light">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -37,7 +38,8 @@
         
         <activity android:name=".SetScanModeActivity_"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light" />
         
         <service android:name=".service.Service_" android:exported="false" />
         

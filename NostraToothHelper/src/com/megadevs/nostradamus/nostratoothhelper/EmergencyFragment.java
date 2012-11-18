@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.googlecode.androidannotations.annotations.EFragment;
-import com.megadevs.nostradamus.nostratoothhelper.msg.Message;
+import com.megadevs.nostradamus.nostratooth.msg.Message;
+import com.megadevs.nostradamus.nostratooth.user.SimpleUser;
 import com.megadevs.nostradamus.nostratoothhelper.service.Service;
-import com.megadevs.nostradamus.nostratoothhelper.user.SimpleUser;
 
 @EFragment(R.layout.emergency)
 public class EmergencyFragment extends Fragment {

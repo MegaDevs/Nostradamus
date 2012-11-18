@@ -1,15 +1,14 @@
 package com.megadevs.nostradamus.nostratoothhelper;
 
-import com.googlecode.androidannotations.annotations.EActivity;
-import com.googlecode.androidannotations.annotations.SystemService;
-
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.SystemService;
 
 @EActivity
 public class SetScanModeActivity extends Activity {

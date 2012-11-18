@@ -11,6 +11,7 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.util.Log;
 import com.googlecode.androidannotations.api.BackgroundExecutor;
+import com.megadevs.nostradamus.nostratooth.Prefs_;
 import com.megadevs.nostradamus.nostratooth.msg.Message;
 
 public final class Service_
@@ -19,8 +20,9 @@ public final class Service_
 
 
     private void init_() {
-        locationManager = ((LocationManager) this.getSystemService(Context.LOCATION_SERVICE));
+        prefs = new Prefs_(this);
         connManager = ((ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE));
+        locationManager = ((LocationManager) this.getSystemService(Context.LOCATION_SERVICE));
     }
 
     @Override
@@ -42,6 +44,24 @@ public final class Service_
             public void run() {
                 try {
                     Service_.super.send(msg);
+                } catch (RuntimeException e) {
+                    Log.e("Service_", "A runtime exception was thrown while executing code in a runnable", e);
+                }
+            }
+
+        }
+        );
+    }
+
+    @Override
+    public void sendMessageOnline(final Message msg) {
+        BackgroundExecutor.execute(new Runnable() {
+
+
+            @Override
+            public void run() {
+                try {
+                    Service_.super.sendMessageOnline(msg);
                 } catch (RuntimeException e) {
                     Log.e("Service_", "A runtime exception was thrown while executing code in a runnable", e);
                 }
@@ -78,24 +98,6 @@ public final class Service_
             public void run() {
                 try {
                     Service_.super.autoDiscover();
-                } catch (RuntimeException e) {
-                    Log.e("Service_", "A runtime exception was thrown while executing code in a runnable", e);
-                }
-            }
-
-        }
-        );
-    }
-
-    @Override
-    public void sendMessageOnline(final Message msg) {
-        BackgroundExecutor.execute(new Runnable() {
-
-
-            @Override
-            public void run() {
-                try {
-                    Service_.super.sendMessageOnline(msg);
                 } catch (RuntimeException e) {
                     Log.e("Service_", "A runtime exception was thrown while executing code in a runnable", e);
                 }

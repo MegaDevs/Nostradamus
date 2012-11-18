@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.Window;
 
 import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.sharedpreferences.Pref;
 import com.megadevs.androiduserlibrary.AndroidUserLibrary;
 import com.megadevs.androiduserlibrary.AndroidUserLibrary.OnSelectedAccountListener;
 import com.megadevs.nostradamus.nostrapushreceiver.PushService;
@@ -29,7 +30,6 @@ import com.megadevs.nostradamus.nostratooth.service.Service;
 import com.megadevs.nostradamus.nostratooth.service.Service_;
 import com.megadevs.nostradamus.nostratooth.storage.MessageStorage;
 import com.megadevs.nostradamus.nostratooth.storage.UserStorage;
-import com.megadevs.nostradamus.nostratooth.user.SimpleUser;
 import com.megadevs.nostradamus.nostratooth.user.User;
 
 @EActivity
@@ -50,8 +50,8 @@ public class BluetoothTestActivity extends Activity {
 		
 	}
 	
-	public static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");//UUID.fromString("0fdba92f-d218-46d4-8150-97fb6925358f");//UUID.fromString("fd300e40-ad66-11e1-afa6-0800200c9a66");
-//	public static final UUID MY_UUID = UUID.fromString("00001133-0000-1000-8000-00805f9b34fb");
+//	public static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");//UUID.fromString("0fdba92f-d218-46d4-8150-97fb6925358f");//UUID.fromString("fd300e40-ad66-11e1-afa6-0800200c9a66");
+	public static final UUID MY_UUID = UUID.fromString("00001133-0000-1000-8000-00805f9b34fb");
 
 
 	private Intent serviceIntent;
@@ -65,11 +65,16 @@ public class BluetoothTestActivity extends Activity {
 	
 	private Receiver mReceiver;
 	
+	@Pref
+	public Prefs_ prefs;
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+		getActionBar().setLogo(R.drawable.logo1);
+		getActionBar().setDisplayShowTitleEnabled(false);
 		setContentView(R.layout.main);
 		
 		initStorage();
@@ -108,10 +113,9 @@ public class BluetoothTestActivity extends Activity {
 			userLib.init(new OnSelectedAccountListener() {
 				@Override
 				public void onComplete() {
-					Service.myUser = new SimpleUser(userLib.getOwnerName());
-					Service.myUser.email = userLib.getOwnerEmail();
-					Service.myUser.gid = userLib.getOwnerID();
-					System.out.println("User data fetched: "+Service.myUser);
+					prefs.myUserName().put(userLib.getOwnerName());
+					prefs.myUserEmail().put(userLib.getOwnerEmail());
+					prefs.myUserGID().put(userLib.getOwnerID());
 					finish();
 				}
 			});

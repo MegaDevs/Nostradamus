@@ -12,9 +12,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.googlecode.androidannotations.annotations.EFragment;
-import com.megadevs.nostradamus.nostratoothhelper.msg.Message;
+import com.megadevs.nostradamus.nostratooth.msg.Message;
+import com.megadevs.nostradamus.nostratooth.user.SimpleUser;
 import com.megadevs.nostradamus.nostratoothhelper.service.Service;
-import com.megadevs.nostradamus.nostratoothhelper.user.SimpleUser;
 
 @EFragment
 public class DebugFragment extends Fragment {

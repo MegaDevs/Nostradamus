@@ -1,4 +1,4 @@
-package com.megadevs.nostradamus.nostratoothhelper.msg;
+package com.megadevs.nostradamus.nostratooth.msg;
 
 import java.security.SecureRandom;
 

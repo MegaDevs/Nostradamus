@@ -1,5 +1,6 @@
 int drawable ic_action_search 0x7f020000
 int drawable ic_launcher 0x7f020001
+int drawable logo1 0x7f020002
 int id avatar_container 0x7f070009
 int id badge 0x7f07000a
 int id btn_send 0x7f070002

@@ -12,6 +12,8 @@ import com.googlecode.androidannotations.api.sharedpreferences.BooleanPrefEditor
 import com.googlecode.androidannotations.api.sharedpreferences.BooleanPrefField;
 import com.googlecode.androidannotations.api.sharedpreferences.EditorHelper;
 import com.googlecode.androidannotations.api.sharedpreferences.SharedPreferencesHelper;
+import com.googlecode.androidannotations.api.sharedpreferences.StringPrefEditorField;
+import com.googlecode.androidannotations.api.sharedpreferences.StringPrefField;
 
 public final class Prefs_
     extends SharedPreferencesHelper
@@ -30,6 +32,18 @@ public final class Prefs_
         return booleanField("isEnabled", false);
     }
 
+    public StringPrefField myUserEmail() {
+        return stringField("myUserEmail", "");
+    }
+
+    public StringPrefField myUserGID() {
+        return stringField("myUserGID", "");
+    }
+
+    public StringPrefField myUserName() {
+        return stringField("myUserName", "");
+    }
+
     public final static class PrefsEditor_
         extends EditorHelper<Prefs_.PrefsEditor_>
     {
@@ -41,6 +55,18 @@ public final class Prefs_
 
         public BooleanPrefEditorField<Prefs_.PrefsEditor_> isEnabled() {
             return booleanField("isEnabled");
+        }
+
+        public StringPrefEditorField<Prefs_.PrefsEditor_> myUserEmail() {
+            return stringField("myUserEmail");
+        }
+
+        public StringPrefEditorField<Prefs_.PrefsEditor_> myUserGID() {
+            return stringField("myUserGID");
+        }
+
+        public StringPrefEditorField<Prefs_.PrefsEditor_> myUserName() {
+            return stringField("myUserName");
         }
 
     }

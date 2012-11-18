@@ -7,7 +7,7 @@ public class SimpleUser implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6575260364844768509L;
+	private static final long serialVersionUID = 999L;
 
 	public String name;
 	public String email;

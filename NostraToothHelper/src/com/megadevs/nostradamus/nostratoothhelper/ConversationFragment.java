@@ -21,11 +21,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.megadevs.nostradamus.nostratoothhelper.msg.Message;
+import com.megadevs.nostradamus.nostratooth.msg.Message;
+import com.megadevs.nostradamus.nostratooth.user.User;
 import com.megadevs.nostradamus.nostratoothhelper.service.Service;
 import com.megadevs.nostradamus.nostratoothhelper.storage.MessageStorage;
 import com.megadevs.nostradamus.nostratoothhelper.storage.UserStorage;
-import com.megadevs.nostradamus.nostratoothhelper.user.User;
 
 public class ConversationFragment extends Fragment {
 	
