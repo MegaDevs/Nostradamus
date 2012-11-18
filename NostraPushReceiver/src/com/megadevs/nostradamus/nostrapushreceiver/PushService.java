@@ -14,7 +14,7 @@ public class PushService extends Service {
 		public void run() {
 			//TODO manage
 			try {
-				Thread.sleep(2000);
+				Thread.sleep(5000);
 			} catch (InterruptedException e) {}
 			Intent intent = new Intent(ACTION_ENABLE_EMERGENCY);
 			sendBroadcast(intent);

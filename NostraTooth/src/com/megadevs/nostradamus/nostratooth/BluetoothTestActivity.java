@@ -94,8 +94,8 @@ public class BluetoothTestActivity extends Activity {
 		
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
 //		ft.replace(R.id.fragment_container, new UserListFragment());
-//		ft.replace(R.id.fragment_container, new DebugFragment_());
-		ft.replace(R.id.fragment_container, new EmergencyFragment_());
+		ft.replace(R.id.fragment_container, new DebugFragment_());
+//		ft.replace(R.id.fragment_container, new EmergencyFragment_());
 		ft.commit();
 		
 		setProgressBarVisibility(false);
@@ -111,8 +111,12 @@ public class BluetoothTestActivity extends Activity {
 					Service.myUser = new SimpleUser(userLib.getOwnerName());
 					Service.myUser.email = userLib.getOwnerEmail();
 					Service.myUser.gid = userLib.getOwnerID();
+					System.out.println("User data fetched: "+Service.myUser);
+					finish();
 				}
 			});
+		} else {
+			finish();
 		}
 	}
 
