@@ -45,6 +45,78 @@
 		<url-pattern>/get_camera_info</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>GetAllCameras</servlet-name>
+		<servlet-class>com.megadevs.nostradamus.backend.GetAllCameras</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetAllCameras</servlet-name>
+		<url-pattern>/get_all_cameras</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>StartCameraService</servlet-name>
+		<servlet-class>com.megadevs.nostradamus.backend.StartCameraService</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StartCameraService</servlet-name>
+		<url-pattern>/start_camera_service</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>StopCameraService</servlet-name>
+		<servlet-class>com.megadevs.nostradamus.backend.StopCameraService</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StopCameraService</servlet-name>
+		<url-pattern>/stop_camera_service</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AddUser</servlet-name>
+		<servlet-class>com.megadevs.nostradamus.backend.AddUser</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddUser</servlet-name>
+		<url-pattern>/add_user</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GetNearbyUsers</servlet-name>
+		<servlet-class>com.megadevs.nostradamus.backend.GetNearbyUsers</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetNearbyUsers</servlet-name>
+		<url-pattern>/get_nearby_users</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Bayes</servlet-name>
+		<servlet-class>com.megadevs.nostradamus.backend.Bayes</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Bayes</servlet-name>
+		<url-pattern>/bayes</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SetDisastersStatus</servlet-name>
+		<servlet-class>com.megadevs.nostradamus.backend.SetDisastersStatus</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SetDisastersStatus</servlet-name>
+		<url-pattern>/set_disaster_status</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GetDisastersStatus</servlet-name>
+		<servlet-class>com.megadevs.nostradamus.backend.GetDisastersStatus</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetDisastersStatus</servlet-name>
+		<url-pattern>/get_disaster_status</url-pattern>
+	</servlet-mapping>
+	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
