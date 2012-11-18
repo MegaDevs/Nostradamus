@@ -1,6 +1,7 @@
 package com.megadevs.nostradamus.backend;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -11,43 +12,34 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.Filter;
-import com.google.appengine.api.datastore.Query.FilterOperator;
 
 @SuppressWarnings("serial")
-public class GetCameraInfo extends HttpServlet {
+public class GetDisastersStatus extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		String callbackMethod = req.getParameter(Utils.CALLBACK);
-		String cameraID = req.getParameter(CameraEntity.id);
 		
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-		
-		Filter f = new Query.FilterPredicate(CameraEntity.id, FilterOperator.EQUAL, cameraID);
-		Query q = new Query(CameraEntity.name).setFilter(f);
+		Query q = new Query(DisasterEntity.name);
 		
 		PreparedQuery pq = datastore.prepare(q);
-
-		int counter = 0;
-		int size = pq.countEntities(FetchOptions.Builder.withDefaults());
+		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String,String>>();
 		
-		for (Entity result : pq.asIterable()) {
-			if (counter == size - 1) {
-				HashMap<String,String> rsp = new HashMap<String,String>();
-				
-				for (String s : CameraEntity.getKeys())
-					rsp.put(s, (String) result.getProperty(s));
-				
-				resp.setContentType("application/javascript");
-				resp.getWriter().println(Utils.prepareResponse(rsp, callbackMethod));
-			}
-			counter++;
+		for (Entity s : pq.asIterable()) {
+			HashMap<String, String> current = new HashMap<String, String>();
+			String id = (String) s.getProperty(DisasterEntity.id);
+			String enabled = (String) s.getProperty(DisasterEntity.enabled);
+			current.put(id, enabled);
+			
+			list.add(current);
 		}
+		
+		resp.setContentType("application/javascript");
+		resp.getWriter().println(Utils.prepareResponse(list, callbackMethod));
 	}
 	
 }

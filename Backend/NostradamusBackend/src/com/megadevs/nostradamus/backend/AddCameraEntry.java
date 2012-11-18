@@ -27,7 +27,7 @@ public class AddCameraEntry extends HttpServlet {
 		
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
-		Entity camera = new Entity("camera");
+		Entity camera = new Entity(CameraEntity.name);
 		camera.setProperty(CameraEntity.id, newLocation);
 		camera.setProperty(CameraEntity.hoster, newHost);
 		camera.setProperty(CameraEntity.snapshot, newSnapshot);
@@ -38,5 +38,7 @@ public class AddCameraEntry extends HttpServlet {
 		camera.setProperty(CameraEntity.timestamp, System.currentTimeMillis());
 		
 		datastore.put(camera);
+		
+		resp.getWriter().println("OK");
 	}
 }
