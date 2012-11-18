@@ -19,10 +19,9 @@ public class Test {
 			System.out.println("Necessità di Polizia: "+ we.getNecessityOf(Entity.POLICE));
 			System.out.println("Necessità di Esercito: "+ we.getNecessityOf(Entity.ARMY));
 			System.out.println("Necessità di Croce Rossa: "+ we.getNecessityOf(Entity.RED_CROSS));
+			
+			we.clearEvidence();
 		}
 	}
-	
-	
-	
 
 }
