@@ -229,7 +229,7 @@ public class Service extends android.app.Service implements LocationListener {
 	private boolean listening = false;
 
 	private boolean autoDiscoverEnabled = true;
-	private long AUTO_DISCOVER_SLEEP_TIME = 3 * 60 * 1000;
+	private long AUTO_DISCOVER_SLEEP_TIME = 1 * 60 * 1000;
 	private long MAX_DISCOVER_TIME_DIFF = AUTO_DISCOVER_SLEEP_TIME;
 	private long lastDiscoverTime;
 
@@ -331,7 +331,7 @@ public class Service extends android.app.Service implements LocationListener {
 			public void run() {
 				autoSend();
 			}
-		}, (20 + rand.nextInt(20)) * 1000);
+		}, (10 + rand.nextInt(20)) * 1000);
 	}
 
 	public void deInit() {
@@ -492,7 +492,7 @@ public class Service extends android.app.Service implements LocationListener {
 			public void run() {
 				autoSend();
 			}
-		}, (50 + rand.nextInt(20)) * 1000);
+		}, (25 + rand.nextInt(20)) * 1000);
 	}
 
 	private void showNotification() {

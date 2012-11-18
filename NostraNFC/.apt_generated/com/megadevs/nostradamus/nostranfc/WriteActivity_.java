@@ -31,8 +31,8 @@ public final class WriteActivity_
     }
 
     private void afterSetContentView_() {
-        header = ((TextView) findViewById(id.header));
         edit = ((EditText) findViewById(id.edit));
+        header = ((TextView) findViewById(id.header));
     }
 
     @Override

@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Reader;
+import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -113,6 +114,8 @@ public class Utils {
 
 		data=data.trim();
 		 */
+		
+		System.out.println(((HttpURLConnection)connection).getResponseCode());
 		data=readInputStreamAsString(connection.getInputStream());
 		if(data==null)data="";
 

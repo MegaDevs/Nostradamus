@@ -34,6 +34,24 @@ public final class Service_
     }
 
     @Override
+    public void autoDiscover() {
+        BackgroundExecutor.execute(new Runnable() {
+
+
+            @Override
+            public void run() {
+                try {
+                    Service_.super.autoDiscover();
+                } catch (RuntimeException e) {
+                    Log.e("Service_", "A runtime exception was thrown while executing code in a runnable", e);
+                }
+            }
+
+        }
+        );
+    }
+
+    @Override
     public void listen() {
         BackgroundExecutor.execute(new Runnable() {
 
@@ -60,24 +78,6 @@ public final class Service_
             public void run() {
                 try {
                     Service_.super.sendMessageOnline(msg);
-                } catch (RuntimeException e) {
-                    Log.e("Service_", "A runtime exception was thrown while executing code in a runnable", e);
-                }
-            }
-
-        }
-        );
-    }
-
-    @Override
-    public void autoDiscover() {
-        BackgroundExecutor.execute(new Runnable() {
-
-
-            @Override
-            public void run() {
-                try {
-                    Service_.super.autoDiscover();
                 } catch (RuntimeException e) {
                     Log.e("Service_", "A runtime exception was thrown while executing code in a runnable", e);
                 }

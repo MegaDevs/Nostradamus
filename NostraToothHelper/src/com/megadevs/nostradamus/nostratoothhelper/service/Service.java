@@ -433,11 +433,7 @@ public class Service extends android.app.Service implements LocationListener {
 			listening = false;
 
 			listen();
-		} catch (IOException e) {
-			listening = false;
-			e.printStackTrace();
-			listen();
-		} catch (ClassNotFoundException e) {
+		} catch (Exception e) {
 			listening = false;
 			e.printStackTrace();
 			listen();

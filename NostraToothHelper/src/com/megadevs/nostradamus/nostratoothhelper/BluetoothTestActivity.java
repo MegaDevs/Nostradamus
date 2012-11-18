@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
@@ -31,12 +35,16 @@ import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
+import com.google.android.maps.OverlayItem;
+import com.google.gson.Gson;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.SystemService;
 import com.megadevs.nostradamus.nostrapushreceiver.PushService;
+import com.megadevs.nostradamus.nostrapushreceiver.Utils;
 import com.megadevs.nostradamus.nostratooth.msg.Message;
 import com.megadevs.nostradamus.nostratooth.user.SimpleUser;
 import com.megadevs.nostradamus.nostratooth.user.User;
+import com.megadevs.nostradamus.nostratoothhelper.json.Users;
 import com.megadevs.nostradamus.nostratoothhelper.service.IService;
 import com.megadevs.nostradamus.nostratoothhelper.service.Service;
 import com.megadevs.nostradamus.nostratoothhelper.service.Service_;
@@ -87,6 +95,7 @@ public class BluetoothTestActivity extends MapActivity implements LocationListen
 	private TextView header;
 	private MapView map;
 	private MyLocationOverlay myLoc;
+	private MyOverlay peopleOverlay;
 	private Location lastLocation;
 	private String provider;
 	
@@ -94,6 +103,24 @@ public class BluetoothTestActivity extends MapActivity implements LocationListen
 	public LocationManager locationManager;
 	
 	private Message lastMessage;
+	
+	private Thread fetchMapData = new Thread() {
+		@Override
+		public void run() {
+			try {
+				while (true) {
+					Thread.sleep(3000);
+					DefaultHttpClient client = new DefaultHttpClient();
+					HttpGet req = new HttpGet("http://nostradamus-whymca.appspot.com/get_nearby_users");
+					HttpResponse resp = client.execute(req);
+					String data = Utils.readInputStreamAsString(resp.getEntity().getContent());
+					Gson g = new Gson();
+					Users[] fromJson = g.fromJson(data, Users[].class);
+					updateMapData(fromJson);
+				}
+			} catch (Exception e) {}
+		}
+	};
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -132,6 +159,9 @@ public class BluetoothTestActivity extends MapActivity implements LocationListen
 		map = (MapView) findViewById(R.id.mapview);
 		map.setBuiltInZoomControls(true);
 		myLoc = new MyLocationOverlay(this, map);
+		peopleOverlay = new MyOverlay(getResources().getDrawable(R.drawable.marker_red), this);
+		
+		fetchMapData.start();
 		
 		initStorage();
 		
@@ -180,6 +210,22 @@ public class BluetoothTestActivity extends MapActivity implements LocationListen
 //		}
 	}
 
+	private void updateMapData(final Users[] users) {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				if (users.length > 0) {
+					peopleOverlay.clear();
+					for (Users u : users) {
+						GeoPoint geo = new GeoPoint((int)(Double.parseDouble(u.getLatitude())*1E6), (int)(Double.parseDouble(u.getLongitude())*1E6));
+						peopleOverlay.addOverlay(new OverlayItem(geo, u.getUsername(), u.getEmail()));
+					}
+					peopleOverlay.refresh();
+				}
+			}
+		});
+	}
+	
 	@Override
 	public void onNewIntent(Intent intent) {
 		processIntent(intent);
@@ -248,6 +294,7 @@ public class BluetoothTestActivity extends MapActivity implements LocationListen
 		checkLocationProvider();
 		myLoc.enableMyLocation();
 		map.getOverlays().add(myLoc);
+		map.getOverlays().add(peopleOverlay);
 		if (myLoc != null && myLoc.getMyLocation() != null) {
 			map.getController().animateTo(myLoc.getMyLocation());
 		}

@@ -5,15 +5,15 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
 import com.google.gson.Gson;
-import com.megadevs.nostradamus.automatic.Catastrophe;
-import com.megadevs.nostradamus.automatic.HTTPResult;
-import com.megadevs.nostradamus.automatic.Utils;
-import com.megadevs.nostradamus.automatic.WebcamEvent;
 
 public class PushService extends Service {
 
@@ -21,33 +21,44 @@ public class PushService extends Service {
 	public static final String ACTION_DISABLE_EMERGENCY = "com.megadevs.nostradamus.DISABLE_EMERGENCY";
 	public static String query_evidence = "nostradamus-whymca.appspot.com/get_disaster_status";
 
+	private boolean isEmergency = false;
+	
 	public class CheckThread extends Thread {
 		@Override
 		public void run() {
-			//TODO manage
 			try {
-				Thread.sleep(8000);
+				while (true) {
+					Thread.sleep(5000);
+					System.out.println("CheckThread");
+					if (isEmergency()) {
+						System.out.println("isEmergency");
+						if (isEmergency) continue;
+						isEmergency = true;
+						Intent intent = new Intent(ACTION_ENABLE_EMERGENCY);
+						sendBroadcast(intent);
+					} else {
+						System.out.println("NOTisEmergency");
+						if (!isEmergency) continue;
+						isEmergency = false;
+						Intent intent = new Intent(ACTION_DISABLE_EMERGENCY);
+						sendBroadcast(intent);
+					}
+				}
 			} catch (InterruptedException e) {}
-			Intent intent = new Intent(ACTION_ENABLE_EMERGENCY);
-			sendBroadcast(intent);
 		}
 	}
 
 	private boolean isEmergency(){
 		try {
 
-			WebcamEvent we = new WebcamEvent();
-			//we.setNetFile("/home/ziby/Desktop/Hackaton/webcam.xml");
-			System.out.println("Getting schema...");
-			HTTPResult executeHTTPUrl;
-			executeHTTPUrl = Utils.executeHTTPUrl("megadevs.com/nostradamus/generic.xml", null,null);
-
-			we.setNetData(executeHTTPUrl.getData());
-
-			System.out.println("Getting evidence...");
 			//TODO get evidence
-			HTTPResult ev = Utils.executeHTTPUrl(query_evidence, null,null);
-			String datajson = ev.getData();
+//			HTTPResult ev = Utils.executeHTTPUrl(query_evidence, null,null);
+//			String datajson = ev.getData();
+			
+			DefaultHttpClient client = new DefaultHttpClient();
+			HttpGet req = new HttpGet("http://"+query_evidence);
+			HttpResponse resp = client.execute(req);
+			String datajson = Utils.readInputStreamAsString(resp.getEntity().getContent());
 
 
 			Gson g=new Gson();
@@ -65,10 +76,10 @@ public class PushService extends Service {
 		} catch (IOException e) {
 			e.printStackTrace();
 			return true; //assumo Emergenza se non va 
-		} catch (URISyntaxException e) {
+		} /*catch (URISyntaxException e) {
 			e.printStackTrace();
 			return true;//assumo Emergenza se non va 
-		}
+		}*/
 		return false;
 	}
 

@@ -21,8 +21,8 @@ public final class Service_
 
     private void init_() {
         prefs = new Prefs_(this);
-        connManager = ((ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE));
         locationManager = ((LocationManager) this.getSystemService(Context.LOCATION_SERVICE));
+        connManager = ((ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE));
     }
 
     @Override
@@ -33,24 +33,6 @@ public final class Service_
 
     public static Service_.IntentBuilder_ intent(Context context) {
         return new Service_.IntentBuilder_(context);
-    }
-
-    @Override
-    public void send(final Message msg) {
-        BackgroundExecutor.execute(new Runnable() {
-
-
-            @Override
-            public void run() {
-                try {
-                    Service_.super.send(msg);
-                } catch (RuntimeException e) {
-                    Log.e("Service_", "A runtime exception was thrown while executing code in a runnable", e);
-                }
-            }
-
-        }
-        );
     }
 
     @Override
@@ -72,14 +54,14 @@ public final class Service_
     }
 
     @Override
-    public void listen() {
+    public void send(final Message msg) {
         BackgroundExecutor.execute(new Runnable() {
 
 
             @Override
             public void run() {
                 try {
-                    Service_.super.listen();
+                    Service_.super.send(msg);
                 } catch (RuntimeException e) {
                     Log.e("Service_", "A runtime exception was thrown while executing code in a runnable", e);
                 }
@@ -98,6 +80,24 @@ public final class Service_
             public void run() {
                 try {
                     Service_.super.autoDiscover();
+                } catch (RuntimeException e) {
+                    Log.e("Service_", "A runtime exception was thrown while executing code in a runnable", e);
+                }
+            }
+
+        }
+        );
+    }
+
+    @Override
+    public void listen() {
+        BackgroundExecutor.execute(new Runnable() {
+
+
+            @Override
+            public void run() {
+                try {
+                    Service_.super.listen();
                 } catch (RuntimeException e) {
                     Log.e("Service_", "A runtime exception was thrown while executing code in a runnable", e);
                 }

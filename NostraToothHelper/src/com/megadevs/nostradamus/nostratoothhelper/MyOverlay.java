@@ -17,6 +17,10 @@ public class MyOverlay extends ItemizedOverlay {
 		super(boundCenterBottom(icon));
 		context = cont;
 	}
+	
+	public void clear() {
+		mOverlays.clear();
+	}
 
 	@Override
 	protected OverlayItem createItem(int item) {
@@ -42,6 +46,9 @@ public class MyOverlay extends ItemizedOverlay {
 	
 	public void addOverlay(OverlayItem overlay) {
 		mOverlays.add(overlay);
+	}
+	
+	public void refresh() {
 		populate();
 	}
 
