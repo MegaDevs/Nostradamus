@@ -14,6 +14,8 @@ public class Event {
 	public static final int SAMPLES=6000;
 	
 	private String netFile;
+	private String netData;
+	private String netURI;
 	private BayesNet net;
 	public int mode = MODE_LIKELIHOOD;
 	
@@ -35,7 +37,7 @@ public class Event {
 	 * @return
 	 */
 	public boolean isReady(){
-		if(netFile != null && net != null && evidence !=null)return true;
+		if(net != null && evidence !=null)return true;
 		return false;
 	}
 	
@@ -45,9 +47,10 @@ public class Event {
 	}
 	
 	
+	
 	public void setNetFile(String netFile) {
 		this.netFile = netFile;
-		BayesBox bay = new BayesBox(netFile);
+		BayesBox bay = new BayesBox(netFile,false);
 		net = bay.getBayesNet();
 		evidence = new Hashtable<String, Boolean>();
 	}
@@ -89,6 +92,25 @@ public class Event {
 
 	public void setMode(int mode) {
 		this.mode = mode;
+	}
+
+	public String getNetData() {
+		return netData;
+	}
+
+	public void setNetData(String netData) {
+		this.netData = netData;
+		BayesBox bay = new BayesBox(netData,true);
+		net = bay.getBayesNet();
+		evidence = new Hashtable<String, Boolean>();
+	}
+
+	public String getNetURI() {
+		return netURI;
+	}
+
+	public void setNetURI(String netURI) {
+		this.netURI = netURI;
 	}
 
 }

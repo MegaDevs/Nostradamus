@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import com.google.gson.Gson;
 import com.mashape.client.http.MashapeResponse;
 import com.megadevs.nostradamus.cameramonitor.json.Faces;
+import com.megadevs.nostradamus.cameramonitor.json.db.IPCams;
 import com.megadevs.nostradamus.cameramonitor.reko.FaceAndSceneRecognitionProvidedByReKognitioncom;
 
 public class CameraMonitor {
@@ -18,11 +19,13 @@ public class CameraMonitor {
 	private int interval=10000;
 	private int timeoutImages=15000;
 	private static String server="nostradamus-whymca.appspot.com/add_camera_entry?";
-
+	private static String allcams="nostradamus-whymca.appspot.com/get_all_cameras";
+	public static final String latitude = "latitude";
+    public static final String longitude = "longitude";
+    public static final String probresume = "probresume";
 	public CameraMonitor(){
 		cameras = new ArrayList<IPCamera>();
 	}
-
 
 
 	public void addCamera(IPCamera cam){
@@ -30,24 +33,52 @@ public class CameraMonitor {
 	}
 
 
-
 	public void stopMonitor(){
 		STOP=true;
+	}
+
+
+	public void recoverCams(){
+		//TODO chiamare backend
+		System.out.println("Getting cams...");
+		String query=allcams;
+		try {
+			HTTPResult executeHTTPUrl = Utils.executeHTTPUrl(query, null, null);
+			Gson g = new Gson();
+			IPCams[] ips = g.fromJson(executeHTTPUrl.getData(),IPCams[] .class);
+			
+			for(int i=0;i<ips.length;i++){
+				IPCamera cam = new IPCamera(ips[i].getId(), ips[i].getHoster());
+				cam.setLatitude(ips[i].getLatitude());
+				cam.setLongitude(ips[i].getLongitude());
+				cam.setReportUri(ips[i].getProbresume());
+				addCamera(cam);
+			}
+			System.out.println("ok, total cam recovered: "+cameras.size());
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void push(IPCamera cam, String snap, int faces){
 
 		//id=whymca-padiglione2&hoster=10.1.90.245:8080&snapshot=http://s15.postimage.org/rm0ua4fy3/HFarm_1353199856177.jpg&faces=1
-		
+
 		String query=server+"";
 		query += "id=" +cam.getId()+ "&";
 		query += "hoster=" +cam.getHost()+ "&";
 		query += "snapshot=" +snap+ "&";
+		query += latitude+"=" +cam.getLatitude()+ "&";
+		query += longitude+"=" +cam.getLongitude()+ "&";
+		query += probresume+"=" +cam.getReportUri()+ "&";
 		query += "faces=" +faces;
 		System.out.println(query);
 		try {
 			HTTPResult executeHTTPUrl = Utils.executeHTTPUrl(query, null,null);
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
@@ -107,7 +138,7 @@ public class CameraMonitor {
 									System.out.println("--Update db...");
 									if(STOP)return;
 									push(cam, uploadImage, howMany);
-									//TODO scrivere su db
+									//PUSH SU BASCKEND
 									System.out.println("Complete.");
 								}else{
 									System.out.println("Errore API");
@@ -121,6 +152,7 @@ public class CameraMonitor {
 
 						else{
 							//TODO notificare camera non raggiungibile
+							System.out.println("Camera not available");
 						}
 					}
 
