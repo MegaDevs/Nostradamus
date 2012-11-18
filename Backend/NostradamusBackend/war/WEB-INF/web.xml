@@ -14,8 +14,35 @@
 		<servlet-class>com.megadevs.nostradamus.backend.NostradamusReadServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>NostradamusRead</servlet-name>
+	<servlet-name>NostradamusRead</servlet-name>
 		<url-pattern>/nostradamus_read</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AddCameraEntry</servlet-name>
+		<servlet-class>com.megadevs.nostradamus.backend.AddCameraEntry</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddCameraEntry</servlet-name>
+		<url-pattern>/add_camera_entry</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GetCameraSnapshot</servlet-name>
+		<servlet-class>com.megadevs.nostradamus.backend.GetCameraSnapshot</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetCameraSnapshot</servlet-name>
+		<url-pattern>/get_camera_snapshot</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GetCameraInfo</servlet-name>
+		<servlet-class>com.megadevs.nostradamus.backend.GetCameraInfo</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetCameraInfo</servlet-name>
+		<url-pattern>/get_camera_info</url-pattern>
 	</servlet-mapping>
 	
 	<welcome-file-list>
