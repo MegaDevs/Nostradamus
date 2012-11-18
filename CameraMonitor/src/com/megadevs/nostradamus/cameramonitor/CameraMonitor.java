@@ -1,9 +1,8 @@
 package com.megadevs.nostradamus.cameramonitor;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -16,9 +15,9 @@ import com.megadevs.nostradamus.cameramonitor.reko.FaceAndSceneRecognitionProvid
 public class CameraMonitor {
 	public static boolean STOP = true;
 	private ArrayList<IPCamera> cameras;
-	private String cacheDir;
 	private int interval=10000;
 	private int timeoutImages=15000;
+	private static String server="nostradamus-whymca.appspot.com/add_camera_entry?";
 
 	public CameraMonitor(){
 		cameras = new ArrayList<IPCamera>();
@@ -31,20 +30,30 @@ public class CameraMonitor {
 	}
 
 
-	public String getCacheDir() {
-		return cacheDir;
-	}
-
-
-	public void setCacheDir(String cacheDir) {
-		this.cacheDir = cacheDir;
-		File f = new File(cacheDir);
-		if(!f.exists())
-			f.mkdirs();
-	}
 
 	public void stopMonitor(){
 		STOP=true;
+	}
+
+	public static void push(IPCamera cam, String snap, int faces){
+
+		//id=whymca-padiglione2&hoster=10.1.90.245:8080&snapshot=http://s15.postimage.org/rm0ua4fy3/HFarm_1353199856177.jpg&faces=1
+		
+		String query=server+"";
+		query += "id=" +cam.getId()+ "&";
+		query += "hoster=" +cam.getHost()+ "&";
+		query += "snapshot=" +snap+ "&";
+		query += "faces=" +faces;
+		System.out.println(query);
+		try {
+			HTTPResult executeHTTPUrl = Utils.executeHTTPUrl(query, null,null);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}  
+
 	}
 
 	public void startMonitor(){
@@ -63,12 +72,13 @@ public class CameraMonitor {
 							if(STOP)return;
 							//save snap
 							System.out.println("--Saving snapshot...");
-							File snap = new File(getCacheDir()+cam.getId()+"_"+System.currentTimeMillis()+".jpg");
-							FileOutputStream fo;
+							//File snap = new File(getCacheDir()+cam.getId()+"_"+System.currentTimeMillis()+".jpg");
+							FakeFile snap = new FakeFile(cam.getId()+"_"+System.currentTimeMillis()+".jpg", cam.getFrame());
+							//FileOutputStream fo;
 							try {
-								fo = new FileOutputStream(snap);
-								fo.write(cam.getFrame());
-								fo.close();
+								//fo = new FileOutputStream(snap);
+								//fo.write(cam.getFrame());
+								//fo.close();
 								if(STOP)return;
 
 								//push to postImage
@@ -93,9 +103,11 @@ public class CameraMonitor {
 									Gson g = new Gson();
 									Faces f = g.fromJson(Utils.readInputStreamAsString(response.getRawBody()),Faces.class);
 									int howMany = f.getFace_detection().size();
-									
-									//TODO scrivere su db
 									System.out.println("Numero di persone: "+howMany);
+									System.out.println("--Update db...");
+									if(STOP)return;
+									push(cam, uploadImage, howMany);
+									//TODO scrivere su db
 									System.out.println("Complete.");
 								}else{
 									System.out.println("Errore API");
@@ -111,7 +123,7 @@ public class CameraMonitor {
 							//TODO notificare camera non raggiungibile
 						}
 					}
-					
+
 					try {
 						System.out.println("Sleeping for "+interval/1000+"s");
 						sleep(interval);
