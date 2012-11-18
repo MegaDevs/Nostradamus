@@ -21,11 +21,15 @@ import android.view.MenuItem;
 import android.view.Window;
 
 import com.googlecode.androidannotations.annotations.EActivity;
+import com.megadevs.androiduserlibrary.AndroidUserLibrary;
+import com.megadevs.androiduserlibrary.AndroidUserLibrary.OnSelectedAccountListener;
+import com.megadevs.nostradamus.nostrapushreceiver.PushService;
 import com.megadevs.nostradamus.nostratooth.service.IService;
 import com.megadevs.nostradamus.nostratooth.service.Service;
 import com.megadevs.nostradamus.nostratooth.service.Service_;
 import com.megadevs.nostradamus.nostratooth.storage.MessageStorage;
 import com.megadevs.nostradamus.nostratooth.storage.UserStorage;
+import com.megadevs.nostradamus.nostratooth.user.SimpleUser;
 import com.megadevs.nostradamus.nostratooth.user.User;
 
 @EActivity
@@ -70,6 +74,8 @@ public class BluetoothTestActivity extends Activity {
 		
 		initStorage();
 		
+		startService(new Intent(this, PushService.class));
+		
 		serviceIntent = new Intent(this, Service_.class);
 		
 		serviceConn = new ServiceConnection() {
@@ -96,6 +102,18 @@ public class BluetoothTestActivity extends Activity {
 		setProgressBarIndeterminateVisibility(false);
 		
 		processIntent(getIntent());
+		
+		if (Service.myUser == null) {
+			final AndroidUserLibrary userLib = AndroidUserLibrary.getInstance(this);
+			userLib.init(new OnSelectedAccountListener() {
+				@Override
+				public void onComplete() {
+					Service.myUser = new SimpleUser(userLib.getOwnerName());
+					Service.myUser.email = userLib.getOwnerEmail();
+					Service.myUser.gid = userLib.getOwnerID();
+				}
+			});
+		}
 	}
 
 	@Override
