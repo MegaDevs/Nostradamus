@@ -19,5 +19,10 @@ public class SimpleUser implements Serializable {
 	public SimpleUser(String name) {
 		this.name = name;
 	}
+	
+	@Override
+	public String toString() {
+		return name+" "+email+" "+gid+" "+latitude+" "+longitude;
+	}
 
 }

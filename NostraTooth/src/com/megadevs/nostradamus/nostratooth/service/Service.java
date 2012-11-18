@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.util.Random;
 import java.util.Vector;
 
@@ -374,7 +375,7 @@ public class Service extends android.app.Service implements LocationListener {
 	}
 
 	public SimpleUser getMyUser() {
-		return new SimpleUser(mBluetoothAdapter.getName());
+		return myUser;
 	}
 
 	public void getNeighbours(NeighboursAvailableListener listener) {
@@ -556,13 +557,17 @@ public class Service extends android.app.Service implements LocationListener {
 		return true;
 	}
 	
-	private void sendMessageOnline(Message msg) {
+	@Background
+	public void sendMessageOnline(Message msg) {
 		if (isConnected()) {
 			DefaultHttpClient client = new DefaultHttpClient();
 			int tot = msg.knowledge.knowledge.size();
 			for (SimpleUser user : msg.knowledge.knowledge.values()) {
-				HttpGet req = new HttpGet(URI.create("http://nostradamus-whymca.appspot.com/add_user?username="+user.name+"&latitude="+user.latitude+"&longitude"+user.longitude+"=&email="+user.email+"&mesh_components="+tot+"&google_id="+user.gid));
 				try {
+					HttpGet req = new HttpGet();
+					URI uri = URI.create("http://nostradamus-whymca.appspot.com/add_user?username="+URLEncoder.encode(user.name, "UTF-8")+"&latitude="+URLEncoder.encode(user.latitude+"", "UTF-8")+"&longitude="+URLEncoder.encode(user.longitude+"", "UTF-8")+"&email="+URLEncoder.encode(user.email, "UTF-8")+"&mesh_components="+tot+"&google_id="+URLEncoder.encode(user.gid, "UTF-8"));
+					System.out.println("Sending to "+uri);
+					req.setURI(uri);
 					client.execute(req);
 				} catch (ClientProtocolException e) {
 					// TODO Auto-generated catch block
@@ -572,6 +577,7 @@ public class Service extends android.app.Service implements LocationListener {
 					e.printStackTrace();
 				}
 			}
+			System.out.println("Message sent online");
 		}
 	}
 
