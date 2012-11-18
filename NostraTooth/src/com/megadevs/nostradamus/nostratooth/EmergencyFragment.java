@@ -73,7 +73,7 @@ public class EmergencyFragment extends Fragment {
 		for (SimpleUser u : msg.knowledge.knowledge.values()) {
 			sb.append(u.name).append("\n");
 		}
-		txt.setText(sb.toString());
+//		txt.setText(sb.toString());
 	}
 	
 }

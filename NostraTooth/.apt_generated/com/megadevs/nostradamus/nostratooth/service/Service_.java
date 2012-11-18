@@ -7,6 +7,8 @@ package com.megadevs.nostradamus.nostratooth.service;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.LocationManager;
+import android.net.ConnectivityManager;
 import android.util.Log;
 import com.googlecode.androidannotations.api.BackgroundExecutor;
 import com.megadevs.nostradamus.nostratooth.msg.Message;
@@ -17,6 +19,8 @@ public final class Service_
 
 
     private void init_() {
+        locationManager = ((LocationManager) this.getSystemService(Context.LOCATION_SERVICE));
+        connManager = ((ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE));
     }
 
     @Override
@@ -48,14 +52,14 @@ public final class Service_
     }
 
     @Override
-    public void autoDiscover() {
+    public void listen() {
         BackgroundExecutor.execute(new Runnable() {
 
 
             @Override
             public void run() {
                 try {
-                    Service_.super.autoDiscover();
+                    Service_.super.listen();
                 } catch (RuntimeException e) {
                     Log.e("Service_", "A runtime exception was thrown while executing code in a runnable", e);
                 }
@@ -66,14 +70,14 @@ public final class Service_
     }
 
     @Override
-    public void listen() {
+    public void autoDiscover() {
         BackgroundExecutor.execute(new Runnable() {
 
 
             @Override
             public void run() {
                 try {
-                    Service_.super.listen();
+                    Service_.super.autoDiscover();
                 } catch (RuntimeException e) {
                     Log.e("Service_", "A runtime exception was thrown while executing code in a runnable", e);
                 }

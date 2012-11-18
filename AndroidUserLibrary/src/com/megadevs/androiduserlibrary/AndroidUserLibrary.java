@@ -24,11 +24,11 @@ public class AndroidUserLibrary {
 	private static AndroidUserLibrary instance;
 	private OnSelectedAccountListener listener;
 	
-	private AndroidUserLibrary(Activity activity) {
+	private AndroidUserLibrary(Context activity) {
 		mContext = activity;
 	}
 	
-	public static AndroidUserLibrary getInstance(Activity activity) {
+	public static AndroidUserLibrary getInstance(Context activity) {
 		if (instance == null)
 			instance = new AndroidUserLibrary(activity);
 
@@ -62,10 +62,8 @@ public class AndroidUserLibrary {
 		return builder.create();
 	}
 
-	public static class OnSelectedAccountListener {
-		public void onComplete() {
-			;
-		}
+	public static interface OnSelectedAccountListener {
+		public void onComplete();
 	}
 	
 	public String getOwnerName() {

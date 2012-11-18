@@ -11,7 +11,8 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int ic_action_search=0x7f020000;
+        public static final int ic_launcher=0x7f020001;
     }
     public static final class id {
         public static final int avatar_container=0x7f070009;
@@ -23,8 +24,9 @@ public final class R {
         public static final int header=0x7f070006;
         public static final int img_available=0x7f070012;
         public static final int input_container=0x7f070000;
-        public static final int menu_activate=0x7f070014;
-        public static final int menu_refresh_neighbours=0x7f070015;
+        public static final int menu_activate=0x7f070015;
+        public static final int menu_refresh_neighbours=0x7f070016;
+        public static final int menu_settings=0x7f070014;
         public static final int root=0x7f070004;
         public static final int txt=0x7f070005;
         public static final int txt_ack=0x7f07000e;
@@ -38,39 +40,44 @@ public final class R {
         public static final int user_list=0x7f07000f;
     }
     public static final class layout {
-        public static final int conversation=0x7f030000;
-        public static final int debug=0x7f030001;
-        public static final int emergency=0x7f030002;
-        public static final int list_section=0x7f030003;
-        public static final int main=0x7f030004;
-        public static final int message_row_mine=0x7f030005;
-        public static final int message_row_other=0x7f030006;
-        public static final int user_list=0x7f030007;
-        public static final int user_row=0x7f030008;
+        public static final int activity_android_user_library=0x7f030000;
+        public static final int conversation=0x7f030001;
+        public static final int debug=0x7f030002;
+        public static final int emergency=0x7f030003;
+        public static final int list_section=0x7f030004;
+        public static final int main=0x7f030005;
+        public static final int message_row_mine=0x7f030006;
+        public static final int message_row_other=0x7f030007;
+        public static final int user_list=0x7f030008;
+        public static final int user_row=0x7f030009;
     }
     public static final class menu {
-        public static final int menu_activate_toggle=0x7f060000;
-        public static final int menu_refresh_neighbours=0x7f060001;
+        public static final int activity_android_user_library=0x7f060000;
+        public static final int menu_activate_toggle=0x7f060001;
+        public static final int menu_refresh_neighbours=0x7f060002;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
-        public static final int app_running=0x7f040008;
-        public static final int btn_send=0x7f040002;
-        public static final int click_to_show_app=0x7f040009;
-        public static final int enter_message_here=0x7f04000a;
-        public static final int hello=0x7f040001;
-        public static final int in_range_users=0x7f040010;
-        public static final int menu_activate_off=0x7f040004;
-        public static final int menu_activate_on=0x7f040003;
-        public static final int menu_refresh_neighbours=0x7f040005;
-        public static final int message_acked=0x7f04000c;
-        public static final int my_friends=0x7f040011;
-        public static final int new_message_from=0x7f040007;
-        public static final int recent_conversations=0x7f04000f;
-        public static final int sending_message=0x7f04000b;
-        public static final int service_not_started=0x7f040006;
-        public static final int user_in_range=0x7f04000e;
-        public static final int waiting_message_ack=0x7f04000d;
+        public static final int app_running=0x7f04000b;
+        public static final int btn_send=0x7f040005;
+        public static final int click_to_show_app=0x7f04000c;
+        public static final int enter_message_here=0x7f04000d;
+        public static final int hello=0x7f040004;
+        public static final int hello_world=0x7f040001;
+        public static final int in_range_users=0x7f040013;
+        public static final int menu_activate_off=0x7f040007;
+        public static final int menu_activate_on=0x7f040006;
+        public static final int menu_refresh_neighbours=0x7f040008;
+        public static final int menu_settings=0x7f040002;
+        public static final int message_acked=0x7f04000f;
+        public static final int my_friends=0x7f040014;
+        public static final int new_message_from=0x7f04000a;
+        public static final int recent_conversations=0x7f040012;
+        public static final int sending_message=0x7f04000e;
+        public static final int service_not_started=0x7f040009;
+        public static final int title_activity_android_user_library=0x7f040003;
+        public static final int user_in_range=0x7f040011;
+        public static final int waiting_message_ack=0x7f040010;
     }
     public static final class style {
         /** 
@@ -94,10 +101,10 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f050000;
+        public static final int AppBaseTheme=0x7f050001;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f050001;
+        public static final int AppTheme=0x7f050000;
     }
 }

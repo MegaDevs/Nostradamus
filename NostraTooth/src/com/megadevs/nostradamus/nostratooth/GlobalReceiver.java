@@ -1,17 +1,12 @@
 package com.megadevs.nostradamus.nostratooth;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
 import com.megadevs.nostradamus.nostrapushreceiver.PushService;
-import com.megadevs.nostradamus.nostratooth.msg.Message;
 import com.megadevs.nostradamus.nostratooth.service.Service;
-import com.megadevs.nostradamus.nostratooth.storage.UserStorage;
-import com.megadevs.nostradamus.nostratooth.user.User;
+import com.megadevs.nostradamus.nostratooth.service.Service_;
 
 public class GlobalReceiver extends BroadcastReceiver {
 
@@ -27,7 +22,8 @@ public class GlobalReceiver extends BroadcastReceiver {
 		}
 		
 		if (PushService.ACTION_ENABLE_EMERGENCY.equals(action)) {
-			startService(serviceIntent);
+			System.out.println("Emergency enabled");
+			context.startService(new Intent(context, Service_.class));
 		} else if (PushService.ACTION_DISABLE_EMERGENCY.equals(action)) {
 			
 		}

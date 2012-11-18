@@ -28,6 +28,7 @@ public class PushService extends Service {
 	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
+		System.out.println("Start command push service");
 		new CheckThread().start();
 		return START_REDELIVER_INTENT;
 	}
