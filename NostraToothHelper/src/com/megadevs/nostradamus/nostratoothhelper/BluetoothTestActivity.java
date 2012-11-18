@@ -21,7 +21,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.Window;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -30,6 +30,7 @@ import com.google.android.maps.MyLocationOverlay;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.SystemService;
 import com.megadevs.nostradamus.nostrapushreceiver.PushService;
+import com.megadevs.nostradamus.nostratoothhelper.msg.Message;
 import com.megadevs.nostradamus.nostratoothhelper.service.IService;
 import com.megadevs.nostradamus.nostratoothhelper.service.Service;
 import com.megadevs.nostradamus.nostratoothhelper.service.Service_;
@@ -50,13 +51,21 @@ public class BluetoothTestActivity extends MapActivity implements LocationListen
 //				setProgressBarIndeterminateVisibility(true);
 			} else if (Service.SERVICE_DISCOVERY_FINISHED.equals(action)) {
 //				setProgressBarIndeterminateVisibility(false);
+			} else if (Service.SERVICE_RECEIVE_MESSAGE.equals(action)) {
+				Message msg = (Message)intent.getSerializableExtra(Service.EXTRA_MESSAGE);
+				int tot = msg.knowledge.knowledge.size();
+				if (tot > 0) {
+					header.setText(String.format("Persone rilevate: %1$d", tot));
+				} else {
+					header.setText("Nessuna persona rilevata");
+				}
 			}
 		}
 		
 	}
 	
-//	public static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");//UUID.fromString("0fdba92f-d218-46d4-8150-97fb6925358f");//UUID.fromString("fd300e40-ad66-11e1-afa6-0800200c9a66");
-	public static final UUID MY_UUID = UUID.fromString("00001133-0000-1000-8000-00805f9b34fb");
+	public static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");//UUID.fromString("0fdba92f-d218-46d4-8150-97fb6925358f");//UUID.fromString("fd300e40-ad66-11e1-afa6-0800200c9a66");
+//	public static final UUID MY_UUID = UUID.fromString("00001133-0000-1000-8000-00805f9b34fb");
 
 
 	private Intent serviceIntent;
@@ -70,6 +79,7 @@ public class BluetoothTestActivity extends MapActivity implements LocationListen
 	
 	private Receiver mReceiver;
 	
+	private TextView header;
 	private MapView map;
 	private MyLocationOverlay myLoc;
 	private Location lastLocation;
@@ -84,6 +94,8 @@ public class BluetoothTestActivity extends MapActivity implements LocationListen
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.main);
+		
+		header = (TextView) findViewById(R.id.header);
 		
 		map = (MapView) findViewById(R.id.mapview);
 		map.setBuiltInZoomControls(true);
@@ -197,6 +209,7 @@ public class BluetoothTestActivity extends MapActivity implements LocationListen
 		filter.setPriority(1000);
 		filter.addAction(Service.SERVICE_DISCOVERY_STARTED);
 		filter.addAction(Service.SERVICE_DISCOVERY_FINISHED);
+		filter.addAction(Service.SERVICE_RECEIVE_MESSAGE);
 		mReceiver = new Receiver();
 		registerReceiver(mReceiver, filter);
 		

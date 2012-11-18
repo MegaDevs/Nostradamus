@@ -84,43 +84,47 @@ public class Service extends android.app.Service implements LocationListener {
 				BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 				System.out.println("Found: "+device.getName());
 
-				ParcelUuid uuids[] = device.getUuids();
-				boolean compatible = false;
-				if (uuids != null) {
-					for (int i = 0; i < uuids.length; i++) {
-						if (uuids[i].getUuid().equals(BluetoothTestActivity.MY_UUID)) {
-							compatible = true;
-							System.out.println("Compatible!");
-							if (!neighbours.contains(device)) {
-								neighbours.add(device);
-							}
-							break;
-						}
-					}
+				if (!neighbours.contains(device)) {
+					neighbours.add(device);
 				}
-				if (!compatible) {
-					System.out.println("NOT compatible!");
-					discoveryDeviceAsyncCount++;
-					device.fetchUuidsWithSdp();
-				}
+				
+//				ParcelUuid uuids[] = device.getUuids();
+//				boolean compatible = false;
+//				if (uuids != null) {
+//					for (int i = 0; i < uuids.length; i++) {
+//						if (uuids[i].getUuid().equals(BluetoothTestActivity.MY_UUID)) {
+//							compatible = true;
+//							System.out.println("Compatible!");
+//							if (!neighbours.contains(device)) {
+//								neighbours.add(device);
+//							}
+//							break;
+//						}
+//					}
+//				}
+//				if (!compatible) {
+//					System.out.println("NOT compatible!");
+//					discoveryDeviceAsyncCount++;
+//					device.fetchUuidsWithSdp();
+//				}
 			} else if (BluetoothDevice.ACTION_UUID.equals(action)) {
-				BluetoothDevice d = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-				System.out.println("After fetching UUID with SDP for device " + d.getName());
-				Parcelable[] uuids = intent.getParcelableArrayExtra(BluetoothDevice.EXTRA_UUID);
-				if (uuids != null) {
-					for (int i = 0; i < uuids.length; i++) {
-						System.out.println(((ParcelUuid)uuids[i]).getUuid());
-						if (((ParcelUuid)uuids[i]).getUuid().equals(BluetoothTestActivity.MY_UUID)) {
-							if (!neighbours.contains(d)) {
-								neighbours.add(d);
-							}
-							break;
-						}
-					}
-				}
-				if (++discoveryDeviceAsyncReturnedCount == discoveryDeviceAsyncCount) {
-					finishDiscovery();
-				}
+//				BluetoothDevice d = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+////				System.out.println("After fetching UUID with SDP for device " + d.getName());
+//				Parcelable[] uuids = intent.getParcelableArrayExtra(BluetoothDevice.EXTRA_UUID);
+//				if (uuids != null) {
+//					for (int i = 0; i < uuids.length; i++) {
+////						System.out.println(((ParcelUuid)uuids[i]).getUuid());
+//						if (((ParcelUuid)uuids[i]).getUuid().equals(BluetoothTestActivity.MY_UUID)) {
+//							if (!neighbours.contains(d)) {
+//								neighbours.add(d);
+//							}
+//							break;
+//						}
+//					}
+//				}
+//				if (++discoveryDeviceAsyncReturnedCount == discoveryDeviceAsyncCount) {
+//					finishDiscovery();
+//				}
 			} else if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action)) {
 				switch (intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.STATE_OFF)) {
 				case BluetoothAdapter.STATE_ON:
@@ -312,12 +316,12 @@ public class Service extends android.app.Service implements LocationListener {
 		autoDiscover();
 //		myKnowledge.update(getMyAddress(), getMyUser());
 		Random rand = new Random(System.currentTimeMillis());
-		mHandler.postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				autoSend();
-			}
-		}, (20 + rand.nextInt(20)) * 1000);
+//		mHandler.postDelayed(new Runnable() {
+//			@Override
+//			public void run() {
+//				autoSend();
+//			}
+//		}, (20 + rand.nextInt(20)) * 1000);
 	}
 
 	public void deInit() {
@@ -418,6 +422,8 @@ public class Service extends android.app.Service implements LocationListener {
 			Intent i = new Intent(SERVICE_RECEIVE_MESSAGE);
 			i.putExtra(EXTRA_MESSAGE, msg);
 			sendOrderedBroadcast(i, null);
+			
+			System.out.println("Received message "+msg);
 
 			ois.close();
 			is.close();
@@ -516,8 +522,10 @@ public class Service extends android.app.Service implements LocationListener {
 	@Override
 	public void onLocationChanged(Location location) {
 		lastLocation = location;
-		myUser.latitude = lastLocation.getLatitude();
-		myUser.longitude = lastLocation.getLongitude();
+		if (lastLocation != null) {
+			myUser.latitude = lastLocation.getLatitude();
+			myUser.longitude = lastLocation.getLongitude();
+		}
 	}
 
 	@Override
@@ -544,10 +552,6 @@ public class Service extends android.app.Service implements LocationListener {
 		provider = locationManager.getBestProvider(criteria, false);
 		//		Toast.makeText(this, "Best provider: "+provider, Toast.LENGTH_SHORT).show();
 		lastLocation = locationManager.getLastKnownLocation(provider);
-		if (lastLocation != null) {
-			myUser.latitude = lastLocation.getLatitude();
-			myUser.longitude = lastLocation.getLongitude();
-		}
 		locationManager.requestLocationUpdates(provider, 1000, 1, this);
 	}
 

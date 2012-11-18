@@ -19,8 +19,8 @@ public final class Service_
 
 
     private void init_() {
-        connManager = ((ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE));
         locationManager = ((LocationManager) this.getSystemService(Context.LOCATION_SERVICE));
+        connManager = ((ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE));
     }
 
     @Override
@@ -34,14 +34,14 @@ public final class Service_
     }
 
     @Override
-    public void listen() {
+    public void send(final Message msg) {
         BackgroundExecutor.execute(new Runnable() {
 
 
             @Override
             public void run() {
                 try {
-                    Service_.super.listen();
+                    Service_.super.send(msg);
                 } catch (RuntimeException e) {
                     Log.e("Service_", "A runtime exception was thrown while executing code in a runnable", e);
                 }
@@ -52,14 +52,14 @@ public final class Service_
     }
 
     @Override
-    public void sendMessageOnline(final Message msg) {
+    public void listen() {
         BackgroundExecutor.execute(new Runnable() {
 
 
             @Override
             public void run() {
                 try {
-                    Service_.super.sendMessageOnline(msg);
+                    Service_.super.listen();
                 } catch (RuntimeException e) {
                     Log.e("Service_", "A runtime exception was thrown while executing code in a runnable", e);
                 }
@@ -88,14 +88,14 @@ public final class Service_
     }
 
     @Override
-    public void send(final Message msg) {
+    public void sendMessageOnline(final Message msg) {
         BackgroundExecutor.execute(new Runnable() {
 
 
             @Override
             public void run() {
                 try {
-                    Service_.super.send(msg);
+                    Service_.super.sendMessageOnline(msg);
                 } catch (RuntimeException e) {
                     Log.e("Service_", "A runtime exception was thrown while executing code in a runnable", e);
                 }

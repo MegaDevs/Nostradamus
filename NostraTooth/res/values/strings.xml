@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
     <string name="hello">Hello World, BluetoothTestActivity!</string>
-    <string name="app_name">BluetoothTest</string>
+    <string name="app_name">NostraTooth</string>
     <string name="btn_send">Send</string>
     <string name="menu_activate_on">Activate</string>
     <string name="menu_activate_off">Disable</string>

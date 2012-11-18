@@ -7,6 +7,7 @@ package com.megadevs.nostradamus.nostratooth;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import com.googlecode.androidannotations.api.sharedpreferences.BooleanPrefEditorField;
 import com.googlecode.androidannotations.api.sharedpreferences.BooleanPrefField;
 import com.googlecode.androidannotations.api.sharedpreferences.EditorHelper;
@@ -18,17 +19,7 @@ public final class Prefs_
 
 
     public Prefs_(Context context) {
-        super(context.getSharedPreferences((getLocalClassName(context)+"_Prefs"), 0));
-    }
-
-    private static String getLocalClassName(Context context) {
-        String packageName = context.getPackageName();
-        String className = context.getClass().getName();
-        int packageLen = packageName.length();
-        if (((!className.startsWith(packageName))||(className.length()<= packageLen))||(className.charAt(packageLen)!= '.')) {
-            return className;
-        }
-        return className.substring((packageLen + 1));
+        super(PreferenceManager.getDefaultSharedPreferences(context));
     }
 
     public Prefs_.PrefsEditor_ edit() {

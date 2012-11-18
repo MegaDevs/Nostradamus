@@ -50,8 +50,8 @@ public class BluetoothTestActivity extends Activity {
 		
 	}
 	
-//	public static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");//UUID.fromString("0fdba92f-d218-46d4-8150-97fb6925358f");//UUID.fromString("fd300e40-ad66-11e1-afa6-0800200c9a66");
-	public static final UUID MY_UUID = UUID.fromString("00001133-0000-1000-8000-00805f9b34fb");
+	public static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");//UUID.fromString("0fdba92f-d218-46d4-8150-97fb6925358f");//UUID.fromString("fd300e40-ad66-11e1-afa6-0800200c9a66");
+//	public static final UUID MY_UUID = UUID.fromString("00001133-0000-1000-8000-00805f9b34fb");
 
 
 	private Intent serviceIntent;

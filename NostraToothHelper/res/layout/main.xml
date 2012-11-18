@@ -5,6 +5,16 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
+    <TextView android:id="@+id/header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="26sp"
+        android:textColor="#f00"
+        android:text="Nessuna persona rilevata" />
+    
     <com.google.android.maps.MapView
         android:id="@+id/mapview"
         android:layout_width="fill_parent"
