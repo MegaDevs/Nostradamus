@@ -34,6 +34,8 @@ public class AddUser extends HttpServlet {
 		user.setProperty(UserEntity.google_id, newGoogleID);
 		
 		datastore.put(user);
+		
+		resp.getWriter().println("OK");
 	}
 	
 }

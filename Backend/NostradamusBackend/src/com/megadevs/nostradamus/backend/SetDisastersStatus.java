@@ -17,6 +17,8 @@ public class SetDisastersStatus extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		String callbackMethod = req.getParameter(Utils.CALLBACK);
+		
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		
 		String earthquake = req.getParameter(DisasterEntity.earthquake);
@@ -64,6 +66,9 @@ public class SetDisastersStatus extends HttpServlet {
 		tornadoDisaster.setProperty(DisasterEntity.enabled, tornado);
 		
 		datastore.put(tornadoDisaster);
+		
+		resp.setContentType("application/javascript");
+		resp.getWriter().println(Utils.prepareResponse("OK", callbackMethod));
 	}
 	
 }

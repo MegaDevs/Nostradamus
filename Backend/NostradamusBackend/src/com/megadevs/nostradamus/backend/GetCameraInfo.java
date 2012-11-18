@@ -23,6 +23,7 @@ public class GetCameraInfo extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		String callbackMethod = req.getParameter(Utils.CALLBACK);
 		String cameraID = req.getParameter(CameraEntity.id);
 		
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -42,7 +43,8 @@ public class GetCameraInfo extends HttpServlet {
 				for (String s : CameraEntity.getKeys())
 					rsp.put(s, (String) result.getProperty(s));
 				
-				resp.getWriter().println(Utils.prepareResponse(rsp, null));
+				resp.setContentType("application/javascript");
+				resp.getWriter().println(Utils.prepareResponse(rsp, callbackMethod));
 			}
 			counter++;
 		}

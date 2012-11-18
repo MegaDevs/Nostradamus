@@ -36,7 +36,7 @@ public class GetNearbyUsers extends HttpServlet {
 			list.add(properties);
 		}
 		
-		resp.getWriter().write(Utils.prepareResponse(list, null));
+		resp.getWriter().println(Utils.prepareResponse(list, null));
 		
 	}
 }

@@ -21,6 +21,8 @@ public class GetDisastersStatus extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		String callbackMethod = req.getParameter(Utils.CALLBACK);
+		
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		Query q = new Query(DisasterEntity.name);
 		
@@ -36,7 +38,8 @@ public class GetDisastersStatus extends HttpServlet {
 			list.add(current);
 		}
 		
-		resp.getWriter().write(Utils.prepareResponse(list, null));
+		resp.setContentType("application/javascript");
+		resp.getWriter().println(Utils.prepareResponse(list, callbackMethod));
 	}
 	
 }

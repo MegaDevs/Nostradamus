@@ -38,5 +38,7 @@ public class AddCameraEntry extends HttpServlet {
 		camera.setProperty(CameraEntity.timestamp, System.currentTimeMillis());
 		
 		datastore.put(camera);
+		
+		resp.getWriter().println("OK");
 	}
 }
