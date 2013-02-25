@@ -1,7 +1,7 @@
 Nostradamus
 ===========
 
-When and Wher
+When and Where
 ------------
 
 And yet again we realized that we were going cold turkey for hackathons. We simply couldn’t wait to get to the next one. This time the [WhyMCA](http://www.whymca.org/) team had the very nice idea of collaborating with [Codemotion](http://rome.codemotionworld.com/) in order to give the hackers a suggestive location for them to create new awesomeness. What better place of [H-Farm](http://www.h-farmventures.com/en/)?
